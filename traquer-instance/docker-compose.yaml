@@ -24,12 +24,12 @@ services:
 #    env_file:
 #      - traquer-julia-server.env
     volumes:
-      - ${traquer_DATA_DIR}:/home/traquer/DATA
+      - ${TRAQUER_DATA_DIR}:/home/traquer/DATA
       - ./volumes/julia-server/CODE:/home/traquer/CODE
       - ./volumes/julia-server/.julia:/home/traquer/.julia:z
       - ./volumes/julia-server/jwt_signing_keys.json:/home/traquer/jwt_signing_keys.json
       - ./volumes/julia-server/.pgpass:/home/traquer/.pgpass:z
-      - ${traquer_FRONTEND_SRC_CODE_DIR}:/home/traquer/tmp/traquer-frontend-angular
+      - ${TRAQUER_FRONTEND_SRC_CODE_DIR}:/home/traquer/tmp/traquer-frontend-angular
     command: tail -F /dev/null # Prevents the container from exiting
     tty: true
 
@@ -53,5 +53,4 @@ services:
 
 networks:
     julia-backend:
-      #external: true
     julia-frontend:
