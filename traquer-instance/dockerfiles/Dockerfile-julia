@@ -1,0 +1,95 @@
+FROM julia:1.7.3
+
+# UID must be given
+# ARG UID -> renamed to HOST_USER_ID
+ARG HOST_USER_ID
+ARG HOST_GROUP_ID
+ARG SSH_MASTER_USER
+ARG SSH_MASTER_PWD
+
+# Install postgresql-client, procps (for ps),libnet-ssleay-perl (for sendemail), libio-socket-ssl-perl (for sendemail), sendemail
+#         poppler-utils (for pdfunite)
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y postgresql-client procps vim zip git libnet-ssleay-perl \
+					   libcrypt-ssleay-perl  libio-socket-ssl-perl sendemail \
+					   inetutils-ping telnet \
+	                   locales\
+	                   poppler-utils;
+
+RUN set -eux; \
+	apt-get install -y xfonts-75dpi tidy gpg;
+
+# Install package file to be able to retrieve the mime-type of files
+# Needed because https://github.com/JuliaIO/FileType.jl does not support xlsx yet
+RUN set -eux; \
+        apt-get install -y file;
+
+# Convenience packages for development and the openssh-server for remote dev
+RUN apt-get install -y vim zip git sudo ack \
+	               inetutils-ping telnet \
+                   openssh-server;
+
+RUN rm -rf /var/lib/apt/lists/*
+
+# Set the HOME variable for the rest of the script
+ENV HOME /home/traquer
+
+# Open port 22 for remote dev
+EXPOSE 22
+
+# Add the ssh server configuration
+COPY docker-build-assets/ssh_config /etc/ssh/ssh_config
+COPY docker-build-assets/sshd_config /etc/ssh/sshd_config
+
+
+# Create the traquer system user
+COPY docker-build-assets/user.sh /usr/local/bin/user.sh
+RUN chmod +x /usr/local/bin/user.sh
+RUN /usr/local/bin/user.sh
+
+# Change the entry point
+COPY docker-build-assets/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the locale to UTF8
+# See: - http://jaredmarkell.com/docker-and-locales/
+#      - https://github.com/tianon/docker-brew-debian/issues/45#issuecomment-325235517
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+RUN echo "LANG=\"en_US.UTF-8\"" >> /etc/locale.conf
+RUN echo "LC_ALL=\"en_US.UTF-8\"" >> /etc/environment
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN locale-gen
+
+# Execute some commands as user 'traquer'
+USER traquer
+WORKDIR /home/traquer
+
+RUN julia -e 'using Pkg;Pkg.add("Revise")'
+
+# Create the .ssh folder and copy some files from the host
+# NOTE: We do it like this and not by mouting a folder (like we do for .aws) because the
+#       the .ssh folder has a lot of restrictions on the permissions...but maybe it is possible
+RUN mkdir $HOME/.ssh
+COPY docker-build-assets/files-from-host-user/id_rsa $HOME/.ssh/id_rsa
+COPY docker-build-assets/files-from-host-user/id_rsa.pub $HOME/.ssh/id_rsa.pub
+COPY docker-build-assets/files-from-host-user/.gitconfig $HOME/.gitconfig
+COPY docker-build-assets/files-from-host-user/authorized_keys $HOME/.ssh/
+
+# Create the /home/traquer/tmp folder so that we can mount there things
+#  like the frontend source code, needed for reverse engineer
+RUN mkdir $HOME/tmp
+
+USER root
+
+# Make the master user the owner of the .ssh folder and .gitconfig file
+RUN chown -R ${SSH_MASTER_USER}:${SSH_MASTER_USER} $HOME
+
+# Change the permissions
+RUN chmod 700 $HOME/.ssh
+RUN chmod 600 $HOME/.ssh/authorized_keys
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

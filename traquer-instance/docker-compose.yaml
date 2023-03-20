@@ -1,0 +1,57 @@
+version: '3'
+services:
+
+  traquer-julia-server:
+    image: traquer-julia-server:${SYST_USER_TAG}
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-julia
+      args:
+        SSH_MASTER_USER: traquer
+        SSH_MASTER_PWD: ${SSH_PASSWORD}
+    networks:
+      - julia-backend
+      - julia-frontend
+    container_name: traquer-julia-server-${SYST_USER_TAG}
+    ports:
+      - "${JULIA_API_PORT}:8095"
+      - "${SSH_PORT}:22"
+#    restart: no # restart the container together with the daemon
+#    env_file:
+#      - traquer-julia-server.env
+    volumes:
+      - ${traquer_DATA_DIR}:/home/traquer/DATA
+      - ./volumes/julia-server/CODE:/home/traquer/CODE
+      - ./volumes/julia-server/.julia:/home/traquer/.julia:z
+      - ./volumes/julia-server/jwt_signing_keys.json:/home/traquer/jwt_signing_keys.json
+      - ./volumes/julia-server/.pgpass:/home/traquer/.pgpass:z
+      - ${traquer_FRONTEND_SRC_CODE_DIR}:/home/traquer/tmp/traquer-frontend-angular
+    command: tail -F /dev/null # Prevents the container from exiting
+    tty: true
+
+  traquer-nginx-server:
+    image: traquer-nginx-server:${SYST_USER_TAG}
+    build:
+      context: ./dockerfiles
+      dockerfile: Dockerfile-nginx
+    container_name: traquer-nginx-server-${SYST_USER_TAG}
+    links:
+      - "traquer-julia-server"
+    ports:
+      - ${NGINX_PORT}:80
+    networks:
+      -  julia-frontend
+    restart: always # restart the container together with the daemon
+    volumes:
+      - ./volumes/nginx-server/html/traquer-frontend-angular:/usr/share/nginx/html/traquer-frontend-angular
+      - ./volumes/nginx-server/html/traquer-frontend-angular-en:/usr/share/nginx/html/traquer-frontend-angular-en
+      - ./volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf:/etc/nginx/conf.d/traquer-frontend-angular.nginx.conf
+
+networks:
+    julia-backend:
+      #external: true
+    julia-frontend:

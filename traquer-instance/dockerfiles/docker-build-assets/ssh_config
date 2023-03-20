@@ -1,0 +1,4 @@
+# Prevents "Are you sure you want to continue connecting (yes/no)?" question while connecting to the server.
+Host *    
+  HashKnownHosts yes    
+  GSSAPIAuthentication yes

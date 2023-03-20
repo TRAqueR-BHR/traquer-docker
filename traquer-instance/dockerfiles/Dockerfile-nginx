@@ -1,0 +1,11 @@
+FROM nginx:stable-alpine
+
+# Install git
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh curl openrc shadow
+
+# Change the uid to the one given in argument (i.e. the uid of the user runnig docker on the host)
+# NOTE: This gives user 'merchmgt' the same permissions on the file system
+#        as the user running docker on the host
+#RUN usermod -u ${UID} nginx
+

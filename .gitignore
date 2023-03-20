@@ -1,0 +1,43 @@
+# Ignore the .env file used by docker-compose
+traquer-instance/.env
+
+# Ignore the jwt_signing_keys.json (it contains the private key for signing the jwt)
+traquer-instance/volumes/julia-server/jwt_signing_keys.json
+
+# Ignore the .pgpass
+traquer-instance/volumes/julia-server/.pgpass
+
+# Ignore the content of CODE in the julia server
+traquer-instance/volumes/julia-server/CODE/*
+!traquer-instance/volumes/julia-server/CODE/.gitkeep
+
+# Ignore the content of all julia working dir except the config dir
+traquer-instance/volumes/julia-server/.julia/logs/*
+traquer-instance/volumes/julia-server/.julia/artifacts/
+traquer-instance/volumes/julia-server/.julia/clones/
+traquer-instance/volumes/julia-server/.julia/compiled/
+traquer-instance/volumes/julia-server/.julia/environments/
+traquer-instance/volumes/julia-server/.julia/packages/
+traquer-instance/volumes/julia-server/.julia/registries/
+traquer-instance/volumes/julia-server/.julia/scratchspaces/
+
+# Ignore the content of html in the ngnix server
+traquer-instance/volumes/nginx-server/html/*
+!traquer-instance/volumes/nginx-server/html/.gitkeep
+
+# Ignore the content of the DATA dir in the julia server
+traquer-instance/volumes/julia-server/DATA/*
+!traquer-instance/volumes/julia-server/DATA/.gitkeep
+
+# Ignore the content of the pgadmin data dir
+pgadmin/pgadmin-data/*
+# !pgadmin/pgadmin-data/.gitkeep
+
+# Ignore the content of the scripts dir
+scripts/config.sh
+scripts/backup.log
+scripts/backup1.log
+scripts/backup1_exit_status_code
+
+traquer-instance/dockerfiles/docker-build-assets/files-from-host-user/*
+!traquer-instance/dockerfiles/docker-build-assets/files-from-host-user/.gitkeep
