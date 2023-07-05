@@ -14,8 +14,7 @@ services:
         SSH_MASTER_USER: traquer
         SSH_MASTER_PWD: ${SSH_PASSWORD}
     networks:
-      - julia-backend
-      - julia-frontend
+      - julia-middleware
     container_name: traquer-julia-server-${SYST_USER_TAG}
     ports:
       - "${JULIA_API_PORT}:8095"
@@ -33,6 +32,23 @@ services:
     command: tail -F /dev/null # Prevents the container from exiting
     tty: true
 
+  traquer-pgbouncer:
+    image: edoburu/pgbouncer:1.15.0
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - POOL_MODE=session
+      - ADMIN_USERS=postgres,${DB_USER}
+      - IGNORE_STARTUP_PARAMETERS=options
+      - SERVER_TLS_SSLMODE=prefer
+    networks:
+      julia-middleware:
+        aliases:
+          - pgbouncer
+
   traquer-nginx-server:
     image: traquer-nginx-server:${SYST_USER_TAG}
     build:
@@ -44,7 +60,7 @@ services:
     ports:
       - ${NGINX_PORT}:80
     networks:
-      -  julia-frontend
+      -  nginx-middleware
     restart: always # restart the container together with the daemon
     volumes:
       - ./volumes/nginx-server/html/traquer-frontend-angular:/usr/share/nginx/html/traquer-frontend-angular
@@ -52,5 +68,6 @@ services:
       - ./volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf:/etc/nginx/conf.d/traquer-frontend-angular.nginx.conf
 
 networks:
-    julia-backend:
-    julia-frontend:
+  julia-middleware:
+  nginx-middleware:
+
