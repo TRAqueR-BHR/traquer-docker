@@ -34,6 +34,7 @@ This allows traquer scheduler to `pg_dump`
 
 ##### Create the authorized_keys
 For ssh development, it allows users not to have to give the password
+* `cp ~/authorized_keys dockerfiles/docker-build-assets/files-from-host-user/`
 
 
 #### Create the key for signing JWT
