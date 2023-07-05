@@ -4,7 +4,7 @@ Generate a new value of "k" for jwt_signing_keys.json using the following julia 
 
 ```
 # Generate a HS256 string
-using Base64
+using Base64, Random
 io = IOBuffer();
 iob64_encode = Base64EncodePipe(io);
 write(iob64_encode, randstring(300))
