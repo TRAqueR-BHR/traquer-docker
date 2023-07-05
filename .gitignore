@@ -41,3 +41,9 @@ scripts/backup1_exit_status_code
 
 traquer-instance/dockerfiles/docker-build-assets/files-from-host-user/*
 !traquer-instance/dockerfiles/docker-build-assets/files-from-host-user/.gitkeep
+
+# Ignore the startup.jl
+traquer-instance/volumes/julia-server/.julia/config/startup.jl
+
+# Ignore the configuration for nginx, the hostname is different for every configuration
+traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf
