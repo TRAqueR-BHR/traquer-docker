@@ -41,9 +41,10 @@ For ssh development, it allows users not to have to give the password
   * `cp traquer-instance/volumes/julia-server/jwt_signing_keys.json.tpl traquer-instance/volumes/julia-server/jwt_signing_keys.json`
   * Generate a HS256 string (see traquer-instance/volumes/julia-server/README.md) and replace it in jwt_signing_keys.json
 
-#### Create TRAQUER.jl configuration file
-
-
+#### Create TRAQUER.jl and its configuration file
+  * `cd traquer-instance/volumes/julia-server/CODE/`
+  * `git clone git@github.com:TRAqueR-BHR/TRAQUER.jl.git`
+  * `vi TRAQUER.jl/conf/whatever_name_you_want.conf`
 
 #### Create startup.jl
 
