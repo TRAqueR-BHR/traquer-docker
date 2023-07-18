@@ -7,15 +7,27 @@ ARG HOST_GROUP_ID
 ARG SSH_MASTER_USER
 ARG SSH_MASTER_PWD
 
-# Install postgresql-client, procps (for ps),libnet-ssleay-perl (for sendemail), libio-socket-ssl-perl (for sendemail), sendemail
+# Install wget (needed for installation of postgresql-client-12)
+RUN set -eux; \
+ 	apt-get update; \
+ 		apt-get install -y wget gnupg2
+
+# Install procps (for ps),libnet-ssleay-perl (for sendemail), libio-socket-ssl-perl (for sendemail), sendemail
 #         poppler-utils (for pdfunite)
 RUN set -eux; \
 	apt-get update; \
-	apt-get install -y postgresql-client procps vim zip git libnet-ssleay-perl \
-					   libcrypt-ssleay-perl  libio-socket-ssl-perl sendemail \
-					   inetutils-ping telnet \
+	apt-get install -y procps vim zip git libnet-ssleay-perl \
+			   libcrypt-ssleay-perl  libio-socket-ssl-perl sendemail \
+			   inetutils-ping telnet \
 	                   locales\
 	                   poppler-utils;
+
+# Install postgresql-client-12 (/usr/lib/postgresql/12/bin/pg_dump)
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN set -eux; \
+        apt-get update; \
+                apt-get install -y postgresql-client-12
 
 RUN set -eux; \
 	apt-get install -y xfonts-75dpi tidy gpg;
