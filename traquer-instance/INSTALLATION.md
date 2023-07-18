@@ -26,7 +26,6 @@ https://docs.docker.com/compose/install/
 ##### Create the .pgpass file
 This allows traquer scheduler to `pg_dump`
 
-
 ##### Copy the files from the host (Needed for remote dev)
   * `cp ~/.ssh/id_rsa.pub dockerfiles/docker-build-assets/files-from-host-user/`
   * `cp ~/.ssh/id_rsa dockerfiles/docker-build-assets/files-from-host-user/`
@@ -34,6 +33,7 @@ This allows traquer scheduler to `pg_dump`
 
 ##### Create the authorized_keys
 For ssh development, it allows users not to have to give the password
+* `cp ~/authorized_keys dockerfiles/docker-build-assets/files-from-host-user/`
 
 
 #### Create the key for signing JWT
@@ -41,6 +41,22 @@ For ssh development, it allows users not to have to give the password
   * `cp traquer-instance/volumes/julia-server/jwt_signing_keys.json.tpl traquer-instance/volumes/julia-server/jwt_signing_keys.json`
   * Generate a HS256 string (see traquer-instance/volumes/julia-server/README.md) and replace it in jwt_signing_keys.json
 
+#### Create TRAQUER.jl and its configuration file
+  * `cd traquer-instance/volumes/julia-server/CODE/`
+  * `git clone git@github.com:TRAqueR-BHR/TRAQUER.jl.git`
+  * `vi TRAQUER.jl/conf/whatever_name_you_want.conf`
+
+#### Create startup.jl
+
+  * `cp traquer-instance/volumes/julia-server/.julia/config/startup.jl.tpl traquer-instance/volumes/julia-server/.julia/config/startup.jl`
+  * `vi traquer-instance/volumes/julia-server/.julia/config/startup.jl`
+
+#### Create nginx config file
+
+  * `cp traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf.tpl traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf`
+  * `vi traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf`
+
+NOTE: Don't forget to modify the server_name
 
 ## HOWTO set up VM for Postgresql
 
