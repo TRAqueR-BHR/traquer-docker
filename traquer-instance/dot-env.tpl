@@ -1,4 +1,8 @@
-TRAQUER_DATA_DIR=/home/vlaugier/DATA/TRAQUER
+TRAQUER_DATA_DIR=/home/traquer_dev/DATA/TRAQUER
+TRAQUER_PENDING_INPUT_FILES_DIR=/home/filepusher/PENDING
+TRAQUER_PROCESSING_INPUT_FILES_DIR=/home/filepusher/PROCESSING
+TRAQUER_DONE_INPUT_FILES_DIR=/home/filepusher/DONE
+TRAQUER_INPUT_FILES_PROBLEMS_DIR=/home/filepusher/PROBLEM
 COMPOSE_PROJECT_NAME=traquer-dev-vincent # This allows the same service to have multiple instances
 SSH_PORT=7922
 SSH_PASSWORD=change_me_2023
