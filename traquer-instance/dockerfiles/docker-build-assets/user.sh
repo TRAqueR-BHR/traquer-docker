@@ -15,9 +15,6 @@ groupadd  ${SSH_MASTER_USER}
 # Add a user with the same uid as the owner of the files on the shared volumes
 useradd -m -s /bin/bash -u ${HOST_USER_ID} -g ${SSH_MASTER_USER} ${SSH_MASTER_USER}
 
-# This to allow the new user to ssh to the container
-usermod -a -G ssh ${SSH_MASTER_USER}
-
 # Add a group with the same name and id as the main group of the system user of the host
 #   and add the new user to this group so that he can write files to the host
 # groupadd -g ${HOST_GROUP_ID} ${HOST_GROUP_NAME}

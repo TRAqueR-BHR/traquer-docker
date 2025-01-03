@@ -1,4 +1,4 @@
-FROM julia:1.9.2-bullseye
+FROM julia:1.10.7-bookworm
 
 # UID must be given
 # ARG UID -> renamed to HOST_USER_ID
@@ -23,7 +23,7 @@ RUN set -eux; \
 	                   poppler-utils;
 
 # Install postgresql-client-12 (/usr/lib/postgresql/12/bin/pg_dump)
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN set -eux; \
         apt-get update; \
