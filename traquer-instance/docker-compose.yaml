@@ -28,7 +28,7 @@ services:
       - ${TRAQUER_PROCESSING_INPUT_FILES_DIR}:/home/traquer/FILES_EXCHANGE/PROCESSING
       - ${TRAQUER_DONE_INPUT_FILES_DIR}:/home/traquer/FILES_EXCHANGE/DONE
       - ${TRAQUER_INPUT_FILES_PROBLEMS_DIR}:/home/traquer/FILES_EXCHANGE/PROBLEMS
-      - ./volumes/julia-server/CODE:/home/traquer/CODE
+      - ${TRAQUER_BACKEND_SRC_CODE_DIR}:/home/traquer/CODE/TRAQUER.jl
       - ./volumes/julia-server/.julia:/home/traquer/.julia:z
       - ./volumes/julia-server/jwt_signing_keys.json:/home/traquer/jwt_signing_keys.json
       - ./volumes/julia-server/.pgpass:/home/traquer/.pgpass:z

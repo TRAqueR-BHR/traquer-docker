@@ -9,6 +9,7 @@ SSH_PASSWORD=change_me_2023
 JULIA_API_PORT=7980
 NGINX_PORT=7981
 SYST_USER_TAG=dev-vincent
+TRAQUER_BACKEND_SRC_CODE_DIR=/home/vlaugier/CODE/BHRE/TRAQUER.jl
 TRAQUER_FRONTEND_SRC_CODE_DIR=/home/vlaugier/CODE/BHRE/traquer-frontend-angular
 
 # The variables below are needed for the initialization of the configuration of the pgbouncer
