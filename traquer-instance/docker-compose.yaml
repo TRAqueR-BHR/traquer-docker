@@ -35,22 +35,52 @@ services:
     command: tail -F /dev/null # Prevents the container from exiting
     tty: true
 
-  traquer-pgbouncer:
-    image: edoburu/pgbouncer:1.15.0
+  # traquer-postgresql-12-server:
+  #   image: postgres:12
+  #   container_name: traquer-postgresql-12
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: ${POSTGRES_DEV_DB_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_DEV_DB_PASSWORD}
+  #     POSTGRES_DB: ${POSTGRES_DEV_DB_NAME}
+  #   volumes:
+  #     - ${POSTGRES_DATA_DIR}/postgresql-data-12:/var/lib/postgresql/data
+  #   ports:
+  #     - "${POSTGRES_DEV_DB_PORT}:5432"
+  #   networks:
+  #     - julia-middleware
+
+  traquer-postgresql-16-server:
+    image: postgres:16.1
+    container_name: traquer-postgresql-16
+    restart: always
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - POOL_MODE=session
-      - ADMIN_USERS=postgres,${DB_USER}
-      - IGNORE_STARTUP_PARAMETERS=options
-      - SERVER_TLS_SSLMODE=prefer
+      POSTGRES_USER: ${POSTGRES_DEV_DB_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DEV_DB_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DEV_DB_NAME}
+    volumes:
+      - ${POSTGRES_DATA_DIR}/postgresql-data-16:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_DEV_DB_PORT}:5432"
     networks:
-      julia-middleware:
-        aliases:
-          - pgbouncer
+      - julia-middleware
+
+  # traquer-pgbouncer:
+  #   image: edoburu/pgbouncer:1.15.0
+  #   environment:
+  #     - DB_HOST=${DB_HOST}
+  #     - DB_PORT=${DB_PORT}
+  #     - DB_NAME=${DB_NAME}
+  #     - DB_USER=${DB_USER}
+  #     - DB_PASSWORD=${DB_PASSWORD}
+  #     - POOL_MODE=session
+  #     - ADMIN_USERS=postgres,${DB_USER}
+  #     - IGNORE_STARTUP_PARAMETERS=options
+  #     - SERVER_TLS_SSLMODE=prefer
+  #   networks:
+  #     julia-middleware:
+  #       aliases:
+  #         - pgbouncer
 
   traquer-nginx-server:
     image: traquer-nginx-server:${SYST_USER_TAG}
@@ -73,4 +103,3 @@ services:
 networks:
   julia-middleware:
   nginx-middleware:
-
