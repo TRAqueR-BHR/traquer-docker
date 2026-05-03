@@ -7,7 +7,7 @@ ARG HOST_GROUP_ID
 ARG SSH_MASTER_USER
 ARG SSH_MASTER_PWD
 
-# Install wget (needed for installation of postgresql-client-12)
+# Install wget (needed for installation of postgresql-client-16)
 RUN set -eux; \
  	apt-get update; \
  		apt-get install -y wget gnupg2
@@ -23,12 +23,12 @@ RUN set -eux; \
 	            poppler-utils\
 				libxml2-utils;
 
-# Install postgresql-client-12 (/usr/lib/postgresql/12/bin/pg_dump)
+# Install postgresql-client-16 (/usr/lib/postgresql/16/bin/pg_dump)
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN set -eux; \
         apt-get update; \
-                apt-get install -y postgresql-client-12
+                apt-get install -y postgresql-client-16
 
 RUN set -eux; \
 	apt-get install -y xfonts-75dpi tidy gpg;
