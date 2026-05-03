@@ -7,7 +7,7 @@ ARG HOST_GROUP_ID
 ARG SSH_MASTER_USER
 ARG SSH_MASTER_PWD
 
-# Install wget (needed for installation of postgresql-client-12)
+# Install wget (needed for installation of postgresql-client-16)
 RUN set -eux; \
  	apt-get update; \
  		apt-get install -y wget gnupg2
