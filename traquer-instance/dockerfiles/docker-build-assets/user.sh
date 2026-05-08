@@ -21,7 +21,7 @@ useradd -m -s /bin/bash -u ${HOST_USER_ID} -g ${SSH_MASTER_USER} ${SSH_MASTER_US
 # usermod -a -G ${HOST_GROUP_NAME} ${SSH_MASTER_USER}
 
 echo "${SSH_MASTER_USER}:${SSH_MASTER_PWD}" | chpasswd
-echo 'PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local/julia/bin"' >> ${HOME}/.profile
+echo 'export PATH="/home/traquer/.nvm/versions/node/v24.10.0/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/julia/bin"' >> ${HOME}/.profile
 chown -R ${SSH_MASTER_USER}:${SSH_MASTER_USER} ${HOME}
 
 echo "${SSH_MASTER_USER} ALL=NOPASSWD:/bin/rm" >> /etc/sudoers
