@@ -37,7 +37,12 @@ services:
       # Pi coding agent from host
       - ${PI_HOME_DIR}:/home/traquer/.pi
       - ${PI_NODE_DIR}:/home/traquer/.nvm/versions/node/v24.10.0:ro
+      # Linuxbrew persistent volume to avoid having to reinstall it every time the container
+      # is recreated, and to persist the installed packages
       - ./volumes/julia-server/linuxbrew:/home/linuxbrew
+      # VSCode Server data to persist the installed VSCode extensions and settings between
+      # container recreations
+      - ./volumes/julia-server/vscode-server/:/home/traquer/.vscode-server
     command: tail -F /dev/null # Prevents the container from exiting
     tty: true
 
