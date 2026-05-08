@@ -7,6 +7,10 @@ traquer-instance/volumes/julia-server/jwt_signing_keys.json
 # Ignore the .pgpass
 traquer-instance/volumes/julia-server/.pgpass
 
+# Ignore Linuxbrew installed in the mounted julia server volume
+traquer-instance/volumes/julia-server/linuxbrew/*
+!traquer-instance/volumes/julia-server/linuxbrew/.gitkeep
+
 # Ignore the content of CODE in the julia server
 traquer-instance/volumes/julia-server/CODE/*
 !traquer-instance/volumes/julia-server/CODE/.gitkeep

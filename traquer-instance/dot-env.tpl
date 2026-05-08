@@ -12,6 +12,10 @@ SYST_USER_TAG=dev-vincent
 TRAQUER_BACKEND_SRC_CODE_DIR=/home/vlaugier/CODE/BHRE/TRAQUER.jl
 TRAQUER_FRONTEND_SRC_CODE_DIR=/home/vlaugier/CODE/BHRE/traquer-frontend-angular
 
+# Pi coding agent from host, mounted into traquer-julia-server
+PI_HOME_DIR=/home/vlaugier/.pi
+PI_NODE_DIR=/home/vlaugier/.nvm/versions/node/v24.10.0
+
 # The variables below are needed for the initialization of the configuration of the pgbouncer
 DB_USER=traquer
 DB_NAME=traquer

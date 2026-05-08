@@ -38,10 +38,12 @@ RUN set -eux; \
 RUN set -eux; \
         apt-get install -y file;
 
-# Convenience packages for development and the openssh-server for remote dev
+# Convenience packages for development, Linuxbrew  (build-essential curl ca-certificates)
+# and the openssh-server for remote dev
 RUN apt-get install -y vim zip git sudo ack \
 	               inetutils-ping telnet \
-                   openssh-server;
+                   openssh-server \
+                   build-essential curl ca-certificates;
 
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -63,7 +65,16 @@ RUN /usr/local/bin/user.sh
 
 # Change the entry point
 COPY docker-build-assets/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY docker-build-assets/install-linuxbrew-if-needed.sh /usr/local/bin/install-linuxbrew-if-needed.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/install-linuxbrew-if-needed.sh
+
+# Linuxbrew location. The /home/linuxbrew directory is mounted from
+# ./volumes/julia-server/linuxbrew in docker-compose.yaml, so Homebrew is
+# bootstrapped there by the entrypoint when the container starts.
+ENV HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+ENV HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew
+ENV HOMEBREW_CELLAR=/home/linuxbrew/.linuxbrew/Cellar
+ENV PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH
 
 # Set the locale to UTF8
 # See: - http://jaredmarkell.com/docker-and-locales/

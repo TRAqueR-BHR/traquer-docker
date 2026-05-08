@@ -18,6 +18,8 @@ services:
     ports:
       - "${JULIA_API_PORT}:8095"
       - "${SSH_PORT}:22"
+    environment:
+      PATH: /home/traquer/.nvm/versions/node/v24.10.0/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #    restart: no # restart the container together with the daemon
 #    env_file:
 #      - traquer-julia-server.env
@@ -32,6 +34,10 @@ services:
       - ./volumes/julia-server/jwt_signing_keys.json:/home/traquer/jwt_signing_keys.json
       - ./volumes/julia-server/.pgpass:/home/traquer/.pgpass:z
       - ${TRAQUER_FRONTEND_SRC_CODE_DIR}:/home/traquer/tmp/traquer-frontend-angular
+      # Pi coding agent from host
+      - ${PI_HOME_DIR}:/home/traquer/.pi
+      - ${PI_NODE_DIR}:/home/traquer/.nvm/versions/node/v24.10.0:ro
+      - ./volumes/julia-server/linuxbrew:/home/linuxbrew
     command: tail -F /dev/null # Prevents the container from exiting
     tty: true
 
