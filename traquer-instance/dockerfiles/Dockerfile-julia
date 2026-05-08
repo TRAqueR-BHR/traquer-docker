@@ -40,7 +40,7 @@ RUN set -eux; \
 
 # Convenience packages for development, Linuxbrew  (build-essential curl ca-certificates)
 # and the openssh-server for remote dev
-RUN apt-get install -y vim zip git sudo ack \
+RUN apt-get install -y vim zip git sudo ack tmux \
 	               inetutils-ping telnet \
                    openssh-server \
                    build-essential curl ca-certificates;
