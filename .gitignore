@@ -55,3 +55,6 @@ traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf
 # Ignore the content of the vscode server data dir to persist the installed extensions and settings between container recreations
 traquer-instance/volumes/julia-server/vscode-server/*
 !traquer-instance/volumes/julia-server/vscode-server/.gitkeep
+
+# Ignore the content of the pgadmin dir
+pgadmin/*
