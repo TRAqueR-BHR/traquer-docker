@@ -51,3 +51,7 @@ traquer-instance/volumes/julia-server/.julia/config/startup.jl
 
 # Ignore the configuration for nginx, the hostname is different for every configuration
 traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf
+
+# Ignore the content of the vscode server data dir to persist the installed extensions and settings between container recreations
+traquer-instance/volumes/julia-server/vscode-server/*
+!traquer-instance/volumes/julia-server/vscode-server/.gitkeep
