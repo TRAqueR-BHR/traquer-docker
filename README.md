@@ -43,7 +43,10 @@ traquer-postgresql-16-server:5432:*:traquer_dev:traquer_dev
 
 #### Create the authorized_keys
 For ssh development, it allows users not to have to give the password
-* `cp ~/authorized_keys dockerfiles/docker-build-assets/files-from-host-user/`
+`touch dockerfiles/docker-build-assets/files-from-host-user/authorized_keys`
+and copy the public key of your host:
+eg. `cat ~/.ssh/id_rsa.pub >> dockerfiles/docker-build-assets/files-from-host-user/authorized_keys`
+
 
 ### Create the key for signing JWT
 
