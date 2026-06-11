@@ -5,27 +5,22 @@ Docker Compose infrastructure for the TRAQUER stack. This repository is separate
 ```
 traquer-docker/
 ├── README.md
-├── traquer-instance/        # main TRAQUER compose stack
-│   ├── docker-compose.yaml
-│   ├── dot-env.tpl          # template for .env
-│   ├── build-docker-image.sh
-│   ├── run-docker-container.sh
-│   ├── restart-docker-container.sh
-│   ├── dockerfiles/
-│   │   ├── Dockerfile-julia
-│   │   ├── Dockerfile-nginx
-│   │   └── docker-build-assets/
-│   └── volumes/             # local bind-mounted data/config, mostly gitignored
-└── pgadmin/                 # separate pgAdmin compose setup, currently unrelated
+├── docker-compose.yaml
+├── dot-env.tpl          # template for .env
+├── build-docker-image.sh
+├── run-docker-container.sh
+├── restart-docker-container.sh
+├── dockerfiles/
+│   ├── Dockerfile-julia
+│   ├── Dockerfile-nginx
+│   └── docker-build-assets/
+├── volumes/             # local bind-mounted data/config, mostly gitignored
+└── pgadmin/             # separate pgAdmin compose setup, currently unrelated
 ```
 
 ## Main working directory
 
-Most commands should be run from:
-
-```bash
-traquer-instance/
-```
+Most commands should be run from the repository root.
 
 ## Environment setup
 
@@ -39,8 +34,8 @@ Then fill/edit paths and ports in `.env`.
 
 Important variables:
 
-- `TRAQUER_BACKEND_SRC_CODE_DIR` — absolute path to the `TRAQUER.jl/` checkout.
-- `TRAQUER_FRONTEND_SRC_CODE_DIR` — absolute path to the `traquer-frontend-angular/` checkout.
+- `TRAQUER_BACKEND_SRC_CODE_DIR` — absolute path to the `TRAQUER.jl` checkout.
+- `TRAQUER_FRONTEND_SRC_CODE_DIR` — absolute path to the `traquer-frontend-angular` checkout.
 - `TRAQUER_DATA_DIR` — host data directory mounted into the Julia container.
 - `POSTGRES_DATA_DIR` — host PostgreSQL data directory.
 - `TRAQUER_PENDING_INPUT_FILES_DIR`, `TRAQUER_PROCESSING_INPUT_FILES_DIR`, `TRAQUER_DONE_INPUT_FILES_DIR`, `TRAQUER_INPUT_FILES_PROBLEMS_DIR` — ETL exchange directories.
@@ -52,7 +47,7 @@ Important variables:
 
 ## Build/run commands
 
-From `traquer-instance/`:
+From the repository root:
 
 ```bash
 ./build-docker-image.sh
@@ -131,9 +126,9 @@ The installed Homebrew tree is ignored by git; only `.gitkeep` should be tracked
 
 Do not commit:
 
-- `traquer-instance/.env`
-- `traquer-instance/volumes/julia-server/jwt_signing_keys.json`
-- `traquer-instance/volumes/julia-server/.pgpass`
+- `.env`
+- `volumes/julia-server/jwt_signing_keys.json`
+- `volumes/julia-server/.pgpass`
 - generated Julia depot content under `volumes/julia-server/.julia/`
 - generated frontend builds under `volumes/nginx-server/html/`
 - Linuxbrew installed packages under `volumes/julia-server/linuxbrew/.linuxbrew/`

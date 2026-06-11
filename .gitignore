@@ -1,37 +1,37 @@
 # Ignore the .env file used by docker-compose
-traquer-instance/.env
+.env
 
 # Ignore the jwt_signing_keys.json (it contains the private key for signing the jwt)
-traquer-instance/volumes/julia-server/jwt_signing_keys.json
+volumes/julia-server/jwt_signing_keys.json
 
 # Ignore the .pgpass
-traquer-instance/volumes/julia-server/.pgpass
+volumes/julia-server/.pgpass
 
 # Ignore Linuxbrew installed in the mounted julia server volume
-traquer-instance/volumes/julia-server/linuxbrew/*
-!traquer-instance/volumes/julia-server/linuxbrew/.gitkeep
+volumes/julia-server/linuxbrew/*
+!volumes/julia-server/linuxbrew/.gitkeep
 
 # Ignore the content of CODE in the julia server
-traquer-instance/volumes/julia-server/CODE/*
-!traquer-instance/volumes/julia-server/CODE/.gitkeep
+volumes/julia-server/CODE/*
+!volumes/julia-server/CODE/.gitkeep
 
 # Ignore the content of all julia working dir except the config dir
-traquer-instance/volumes/julia-server/.julia/logs/*
-traquer-instance/volumes/julia-server/.julia/artifacts/
-traquer-instance/volumes/julia-server/.julia/clones/
-traquer-instance/volumes/julia-server/.julia/compiled/
-traquer-instance/volumes/julia-server/.julia/environments/
-traquer-instance/volumes/julia-server/.julia/packages/
-traquer-instance/volumes/julia-server/.julia/registries/
-traquer-instance/volumes/julia-server/.julia/scratchspaces/
+volumes/julia-server/.julia/logs/*
+volumes/julia-server/.julia/artifacts/
+volumes/julia-server/.julia/clones/
+volumes/julia-server/.julia/compiled/
+volumes/julia-server/.julia/environments/
+volumes/julia-server/.julia/packages/
+volumes/julia-server/.julia/registries/
+volumes/julia-server/.julia/scratchspaces/
 
-# Ignore the content of html in the ngnix server
-traquer-instance/volumes/nginx-server/html/*
-!traquer-instance/volumes/nginx-server/html/.gitkeep
+# Ignore the content of html in the nginx server
+volumes/nginx-server/html/*
+!volumes/nginx-server/html/.gitkeep
 
 # Ignore the content of the DATA dir in the julia server
-traquer-instance/volumes/julia-server/DATA/*
-!traquer-instance/volumes/julia-server/DATA/.gitkeep
+volumes/julia-server/DATA/*
+!volumes/julia-server/DATA/.gitkeep
 
 # Ignore the content of the pgadmin data dir
 pgadmin/pgadmin-data/*
@@ -43,18 +43,18 @@ scripts/backup.log
 scripts/backup1.log
 scripts/backup1_exit_status_code
 
-traquer-instance/dockerfiles/docker-build-assets/files-from-host-user/*
-!traquer-instance/dockerfiles/docker-build-assets/files-from-host-user/.gitkeep
+dockerfiles/docker-build-assets/files-from-host-user/*
+!dockerfiles/docker-build-assets/files-from-host-user/.gitkeep
 
 # Ignore the startup.jl
-traquer-instance/volumes/julia-server/.julia/config/startup.jl
+volumes/julia-server/.julia/config/startup.jl
 
 # Ignore the configuration for nginx, the hostname is different for every configuration
-traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf
+volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf
 
 # Ignore the content of the vscode server data dir to persist the installed extensions and settings between container recreations
-traquer-instance/volumes/julia-server/vscode-server/*
-!traquer-instance/volumes/julia-server/vscode-server/.gitkeep
+volumes/julia-server/vscode-server/*
+!volumes/julia-server/vscode-server/.gitkeep
 
 # Ignore the content of the pgadmin dir
 pgadmin/*
