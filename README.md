@@ -27,7 +27,7 @@ Clone the following repositories:
 
 #### Create the .env file
 
-  * `cp traquer-instance/dot-env.tpl traquer-instance/.env`
+  * `cp dot-env.tpl .env`
   * Modify the path in .env
 
 #### Create the .pgpass file
@@ -44,14 +44,14 @@ For ssh development, it allows users not to have to give the password
 
 ### Create the key for signing JWT
 
-  * `cp traquer-instance/volumes/julia-server/jwt_signing_keys.json.tpl traquer-instance/volumes/julia-server/jwt_signing_keys.json`
-  * Generate a HS256 string (see traquer-instance/volumes/julia-server/README.md) and replace it in jwt_signing_keys.json
+  * `cp volumes/julia-server/jwt_signing_keys.json.tpl volumes/julia-server/jwt_signing_keys.json`
+  * Generate a HS256 string (see volumes/julia-server/README.md) and replace it in jwt_signing_keys.json
 
 ### Build and run
 See the following scripts:
-  - traquer-instance/build-docker-image.sh
-  - traquer-instance/run-docker-container.sh
-  - traquer-instance/restart-docker-container.sh
+  - build-docker-image.sh
+  - run-docker-container.sh
+  - restart-docker-container.sh
 
 Once started you should see as many containers as services declared in docker-compose.yaml
 
@@ -64,8 +64,8 @@ Once started you should see as many containers as services declared in docker-co
 
 #### Create startup.jl and reference the config file you just created
 
-  * `cp traquer-instance/volumes/julia-server/.julia/config/startup.jl.tpl traquer-instance/volumes/julia-server/.julia/config/startup.jl`
-  * `vi traquer-instance/volumes/julia-server/.julia/config/startup.jl`
+  * `cp volumes/julia-server/.julia/config/startup.jl.tpl volumes/julia-server/.julia/config/startup.jl`
+  * `vi volumes/julia-server/.julia/config/startup.jl`
 
 At this point, from the julia container, you should be able to start a julia session and run
 `using TRAQUER`
@@ -93,7 +93,7 @@ or build it for deployment
 
 #### Create nginx config file (not needed for dev)
 
-  * `cp traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf.tpl traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf`
-  * `vi traquer-instance/volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf`
+  * `cp volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf.tpl volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf`
+  * `vi volumes/nginx-server/conf/traquer-frontend-angular.nginx.conf`
 
 NOTE: Don't forget to modify the server_name
