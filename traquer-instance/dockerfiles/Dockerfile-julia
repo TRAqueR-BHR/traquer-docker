@@ -39,11 +39,13 @@ RUN set -eux; \
         apt-get install -y file;
 
 # Convenience packages for development, Linuxbrew  (build-essential curl ca-certificates)
+# Python (python3, pip, venv, and python -> python3)
 # and the openssh-server for remote dev
 RUN apt-get install -y vim zip git sudo ack tmux \
 	               inetutils-ping telnet \
                    openssh-server \
-                   build-essential curl ca-certificates;
+                   build-essential curl ca-certificates \
+                   python3 python3-pip python3-venv python-is-python3;
 
 RUN rm -rf /var/lib/apt/lists/*
 
