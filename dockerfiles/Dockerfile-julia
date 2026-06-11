@@ -100,8 +100,7 @@ RUN julia -e 'using Pkg;Pkg.add("Revise")'
 # NOTE: We do it like this and not by mouting a folder (like we do for .aws) because the
 #       the .ssh folder has a lot of restrictions on the permissions...but maybe it is possible
 RUN mkdir $HOME/.ssh
-COPY docker-build-assets/files-from-host-user/id_rsa $HOME/.ssh/id_rsa
-COPY docker-build-assets/files-from-host-user/id_rsa.pub $HOME/.ssh/id_rsa.pub
+COPY docker-build-assets/files-from-host-user/id_* $HOME/.ssh/
 COPY docker-build-assets/files-from-host-user/.gitconfig $HOME/.gitconfig
 COPY docker-build-assets/files-from-host-user/authorized_keys $HOME/.ssh/
 
