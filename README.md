@@ -30,12 +30,15 @@ Clone the following repositories:
   * `cp dot-env.tpl .env`
   * Modify the path in .env
 
-#### Create the .pgpass file
+#### Create the .pgpass file at `volumes/julia-server/.pgpass`
 This allows traquer scheduler to `pg_dump`
+Here is the content of the file:
+```
+traquer-postgresql-16-server:5432:*:traquer_dev:traquer_dev
+```
 
 #### Copy the files from the host (Needed for remote dev)
-  * `cp ~/.ssh/id_rsa.pub dockerfiles/docker-build-assets/files-from-host-user/`
-  * `cp ~/.ssh/id_rsa dockerfiles/docker-build-assets/files-from-host-user/`
+  * `cp ~/.ssh/id_* dockerfiles/docker-build-assets/files-from-host-user/`
   * `cp ~/.gitconfig dockerfiles/docker-build-assets/files-from-host-user/`
 
 #### Create the authorized_keys
