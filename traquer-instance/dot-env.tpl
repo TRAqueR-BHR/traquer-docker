@@ -16,9 +16,18 @@ TRAQUER_FRONTEND_SRC_CODE_DIR=/home/vlaugier/CODE/BHRE/traquer-frontend-angular
 PI_HOME_DIR=/home/vlaugier/.pi
 PI_NODE_DIR=/home/vlaugier/.nvm/versions/node/v24.10.0
 
+# Tmux config file location
+TMUX_CONFIG_DIR=/home/vlaugier/.config/tmux
+
 # The variables below are needed for the initialization of the configuration of the pgbouncer
 DB_USER=traquer
 DB_NAME=traquer
 DB_PASSWORD=xxxxxxxx
 DB_HOST=172.19.0.1 # This is the IP of the postgresql server, not the pgbouncer server
 DB_PORT=5432 # This is the port of the postgresql server, not the pgbouncer server
+
+POSTGRES_DATA_DIR=/home/traquer_dev/DATA/TRAQUER/postgresql
+POSTGRES_DEV_DB_USER=traquer_dev
+POSTGRES_DEV_DB_PASSWORD=traquer_dev
+POSTGRES_DEV_DB_NAME=traquer_dev
+POSTGRES_DEV_DB_PORT=60004
